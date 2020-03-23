@@ -36,6 +36,7 @@ const FormAuth: FunctionComponent<IPropsFormAuth> = ({ handleSubmit }) => {
   return (
     <div className={classes.paper}>
       <Typography component="h1" variant="h5">Sign in</Typography>
+      Login/Password: test/test
       <form className={classes.form} noValidate onSubmit={handleSubmitForm}>
         <TextField
           variant="outlined"
