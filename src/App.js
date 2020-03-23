@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { memo } from 'react';
+import { useSelector } from 'react-redux';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import PrivateRoute from 'components/PrivateRoute';
+import Main from 'routes/Main';
+import Auth from 'routes/Auth'; 
 
-function App() {
+const App = () => {
+  const { isLogged } = useSelector(state => state.auth);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Switch>
+      <PrivateRoute exact path="/main" component={Main} />
+      {!isLogged && <Route exact path="/auth" component={Auth} />}
+      <Redirect to={isLogged ? '/main' : '/auth'}/>
+    </Switch>
   );
-}
+};
 
-export default App;
+export default memo(App);
